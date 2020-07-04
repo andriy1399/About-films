@@ -42,9 +42,8 @@ getSel('.search__btn').addEventListener('click', function () {
     getSel('.search__close').style.display = 'none';
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `http://www.omdbapi.com/?s=${value}&apikey=b29d3e1a`, false);
-    xhr.send();
+    // xhr.send();
     let x = JSON.parse(xhr.responseText)
-    // console.log(x.Search);
     if (x.Search) {
         for (let i = 0; i < x.Search.length; i++) {
             items.makeContent(x.Search[i], i)
