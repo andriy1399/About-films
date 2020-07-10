@@ -30,15 +30,27 @@ function getImg(obj) {
     } else return obj;
 }
 
-function makeModalMoreInf(id) {
-    getSel('.modal__information-wrapper').innerHTML = '';
+function getRatings(arr) {
+    let list = ''
+    for (let i = 0; i < arr.length; i++) {
+        list += `<li>${arr[i].Source}: ${arr[i].Value}</li>`
+    }
+    return `<ul> ${list}</ul>`
+}
+
+async function getFilmInf(id) {
+    const response = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=b29d3e1a`);
+    const result = response.json();
+    return result;
+}
+
+async function makeModalMoreInf(inf) {
     getSel('.modal').classList.add('show');
+    let width = document.body.scrollWidth;
     document.body.style.overflow = 'hidden';
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', `http://www.omdbapi.com/?i=${id}&apikey=b29d3e1a`, false);
-    xhr.send();
-    let inf = JSON.parse(xhr.responseText)
-    
+    getSel('.wrapper').style.width = width + 'px';
+
+    getSel('.modal__information-wrapper').innerHTML = '';
     getSel('.modal__img').setAttribute('src', getImg(inf.Poster));
     makeTag('div', getSel('.modal__information-wrapper'), 'modal__title-wrapper title-wrapper', `<h1>${inf.Title}</h1>`);
     makeTag('p', getSel('.modal__information-wrapper'), 'modal__some-short-txt', `${inf.Rated}, ${inf.Country}, ${inf.Genre}`);
@@ -49,17 +61,10 @@ function makeModalMoreInf(id) {
     makeTag('p', getSel('.modal__information-wrapper'), false, `<span>Awards:</span> ${inf.Awards}`);
     makeTag('p', getSel('.modal__information-wrapper'), false, `<span>Ratings:</span> ${getRatings(inf.Ratings)}`);
     makeTag('p', getSel('.modal__information-wrapper'), 'modal__short-story', inf.Plot)
-   
-} 
-
-function getRatings(arr) {
-    let list = ''
-    for (let i = 0; i < arr.length; i++) {
-        list += `<li>${arr[i].Source}: ${arr[i].Value}</li>`
-    }
-    return `<ul> ${list}</ul>`
 }
+
 export {
     makeContent,
-    makeModalMoreInf
+    makeModalMoreInf,
+    getFilmInf
 }

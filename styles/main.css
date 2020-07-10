@@ -170,6 +170,13 @@ body {
   width: 23%;
   margin-bottom: 1em;
   margin-right: 2.666%;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.result__element--opacity {
+  opacity: 1;
 }
 
 .result__element:nth-child(4n + 4) {
@@ -277,15 +284,27 @@ body {
   bottom: 0;
   background-color: #00000069;
   display: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+
+.modal--opacity {
+  opacity: 1;
 }
 
 .modal__window {
   max-width: 1150px;
-  margin: 0 auto;
+  margin: -6em auto;
   padding: 1em 1em;
   background-color: #fff;
-  margin-top: 1.5em;
   border-radius: 0.4em;
+  -webkit-transition: margin-top, 0.3s ease-in;
+  transition: margin-top, 0.3s ease-in;
+}
+
+.modal__window--mg-top {
+  margin-top: 1.5em;
 }
 
 .modal__all-inf {
